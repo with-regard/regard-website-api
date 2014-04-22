@@ -1,0 +1,15 @@
+{
+  "name": "regard-website-api",
+  "version": "1.0.3",
+  "description": "Api for Regard website",
+  "main": "server.js",
+  "author": "",
+  "license": "Apache v2",
+  "repository": "https://github.com/with-regard/regard-website.git",
+  "dependencies": {
+    "mongoose": "~3.8.8",
+    "express": "~4.0.0",
+    "compression": "~1.0.1",
+    "errorhandler": "~1.0.0"
+  }
+}
