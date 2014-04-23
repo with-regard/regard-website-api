@@ -21,6 +21,7 @@ app.use('/v1', api);
 //app.use(errorHandler);
 app.use(function(err, req, res, next){
   res.status(err.status || 500);
+  console.log(err);
   res.json({ error: err });
 });
 
