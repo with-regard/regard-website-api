@@ -23,7 +23,9 @@ app.get('/projects', function (req, res, next) {
   // filter by user
 
   Project.find().exec().then(function (projects) {
-    res.send(projects);
+    res.json({
+      "projects": projects
+    });
   }, next);
 });
 
