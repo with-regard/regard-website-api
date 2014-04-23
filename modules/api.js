@@ -35,11 +35,11 @@ app.put('/projects/:id', function (req, res, next) {
   Project.findById(req.params.id).exec().then(function (project) {
     project.name = req.body.name;
 
-    project.save().exec().then(function () {
-      res.json({
-        "project": project
-      });
-    }, next);
+    project.save();
+    
+    res.json({
+      "project": project
+    });
   }, next);
 });
 
@@ -48,7 +48,7 @@ app.post('/projects', function (req, res, next) {
     name: req.body.project.name
   });
 
-  project.save().exec().then(function () {
+  project.create().exec().then(function () {
     res.json({
       "project": project
     });
