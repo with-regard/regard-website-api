@@ -18,7 +18,11 @@ var app = express();
 // Configuration
 app.use(compress);
 app.use('/v1', api);
-app.use(errorHandler);
+//app.use(errorHandler);
+app.use(function(err, req, res, next){
+  res.status(err.status || 500);
+  res.json({ error: err });
+});
 
 // Routes
 app.get('/', function (req, res) {
