@@ -49,9 +49,10 @@ app.post('/projects', function (req, res, next) {
   });
 
   Project.create(project).then(function () {
-    res.json({
-      "project": project
-    });
+    //res.json({
+      //"project": project
+    //});
+    res.send(200);
   }, next);
 
   // add project_id to user
