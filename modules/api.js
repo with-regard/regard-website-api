@@ -48,7 +48,7 @@ app.post('/projects', function (req, res, next) {
     name: req.body.project.name
   });
 
-  Project.create(project).exec().then(function () {
+  Project.create(project).then(function () {
     res.json({
       "project": project
     });
