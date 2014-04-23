@@ -2,6 +2,7 @@
 
 var express = require('express');
 var compress = require('compression')();
+var bodyParser = require('body-parser')();
 var errorHandler = require('errorhandler')({
   dumpExceptions: true,
   showStack: true
@@ -17,6 +18,7 @@ var app = express();
 
 // Configuration
 app.use(compress);
+app.use(bodyParser);
 app.use('/v1', api);
 //app.use(errorHandler);
 app.use(function(err, req, res, next){
