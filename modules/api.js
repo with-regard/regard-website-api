@@ -5,16 +5,12 @@ var Project = require('../schemas/project.js');
 
 var app = express();
 
-// Allow CORs
-app.all('*', function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  next();
-});
-
 app.get('/projects/:id', function (req, res, next) {
   Project.findById(req.params.id).exec().then(function (project) {
+    if(!project){
+      res.send(404);
+    }
+    
     res.json({
       "project": project
     });
