@@ -19,6 +19,7 @@ var secret = process.env.COOKIE_SECRET || "secret";
 app.use(cookieParser(secret));
 app.use(cookieSession({
   keys: [secret],
+  domain: '.withregard.io'
 }));
 
 app.use(auth);
