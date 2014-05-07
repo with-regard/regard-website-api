@@ -7,7 +7,7 @@ var app = express();
 
 app.get('/users', function (req, res, next) {
   res.json({
-    "users": [req.session.user]
+    "users": [req.user]
   });
 });
 
