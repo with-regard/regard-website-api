@@ -30,6 +30,5 @@ exports.findOrCreateUser = function (profile) {
 };
 
 exports.fetchUserById = function (id) {
-	console.log('fetching user by id' + id);
   return User.findById(id).exec();
 };

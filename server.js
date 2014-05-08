@@ -1,9 +1,9 @@
 var express = require('express');
-var cookieParser = require('cookie-parser');
-var cookieSession = require('cookie-session');
 var mongoose = require('mongoose');
 
-var auth = require('./modules/auth.js');
+var regardUserStore = require('./modules/regard-user-store');
+var auth = require('regard-authentication')(regardUserStore);
+
 var projectController = require('./modules/projectController.js');
 var investigationController = require('./modules/investigationController.js');
 var userController = require('./modules/userController.js');
@@ -14,13 +14,6 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
 var app = express();
-var secret = process.env.COOKIE_SECRET || "secret";
-
-app.use(cookieParser(secret));
-app.use(cookieSession({
-  keys: [secret],
-  domain: '.withregard.io'
-}));
 
 app.use(auth);
 
