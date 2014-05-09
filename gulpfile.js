@@ -5,7 +5,7 @@ var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
 var nodemon = require('gulp-nodemon');
 
-gulp.task('lint', function() {
+gulp.task('lint', function () {
   return gulp.src('*.js')
     .pipe(jshint())
     .pipe(jshint.reporter(stylish))
