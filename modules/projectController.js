@@ -60,4 +60,4 @@ app.delete('/projects/:id', function (req, res, next) {
   }, next);
 });
 
-module.exports = app
+module.exports = app;
