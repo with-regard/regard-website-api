@@ -1,5 +1,3 @@
-"use strict";
-
 var express = require('express');
 var Investigation = require('../schemas/investigation.js');
 var Project = require('../schemas/project.js');
@@ -31,8 +29,8 @@ app.get('/investigations', function (req, res, next) {
   }).exec().then(function (investigations) {
     res.json({
       investigations: investigations
-    })
-  })
+    });
+  });
 });
 
 app.put('/investigations/:id', function (req, res, next) {

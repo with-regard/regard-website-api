@@ -1,8 +1,5 @@
-"use strict";
-
 var express = require('express');
 var Project = require('../schemas/project.js');
-var User = require('../schemas/userSchema.js');
 
 var app = express();
 
@@ -18,10 +15,10 @@ app.get('/projects/:id', function (req, res, next) {
 });
 
 app.get('/projects', function (req, res, next) {
-  if(!req.query.ids){
+  if (!req.query.ids) {
     res.send(400, 'You must specify a list of ids');
   }
-  
+
   Project.find({
     '_id': {
       $in: req.query.ids
@@ -63,4 +60,4 @@ app.delete('/projects/:id', function (req, res, next) {
   }, next);
 });
 
-module.exports = app;
+module.exports = app

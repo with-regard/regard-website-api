@@ -1,5 +1,3 @@
-'use strict';
-
 var User = require('../schemas/userSchema.js');
 
 function createNewUserFromGithub(profile) {

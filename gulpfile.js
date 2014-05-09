@@ -1,14 +1,23 @@
 "use strict";
 
 var gulp = require('gulp');
+var jshint = require('gulp-jshint');
+var stylish = require('jshint-stylish');
 var nodemon = require('gulp-nodemon');
 
-gulp.task('server', function () {
+gulp.task('lint', function() {
+  return gulp.src('*.js')
+    .pipe(jshint())
+    .pipe(jshint.reporter(stylish))
+    .pipe(jshint.reporter('fail'));
+});
+
+gulp.task('server', ['lint'], function () {
   var productConfig = require('./development-config.json');
   
-  if (productConfig['port'] === -1) {
-      console.log('You need to have a product config defined');
-      process.exit(-1);
+  if (productConfig.port === -1) {
+    console.log('You need to have a product config defined');
+    process.exit(-1);
   }
       
   nodemon({
@@ -20,4 +29,4 @@ gulp.task('server', function () {
     });
 });
 
-gulp.task('default', ['server', ]);
+gulp.task('default', ['lint', 'server']);

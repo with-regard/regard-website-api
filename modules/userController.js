@@ -1,5 +1,3 @@
-"use strict";
-
 var express = require('express');
 var User = require('../schemas/userSchema.js');
 

@@ -2,7 +2,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 
 var allowCors = require('./modules/allowCors.js');
-var regardUserStore = require('./modules/regard-user-store');
+var userStore = require('./modules/regard-user-store');
 var auth = require('regard-authentication');
 
 var projectController = require('./modules/projectController.js');
@@ -17,7 +17,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 var app = express();
 
 app.all("*", allowCors);
-app.use(auth(regardUserStore));
+app.use(auth(userStore));
 
 var apiVersion = '/v1';
 app.use(apiVersion, projectController);
@@ -31,7 +31,5 @@ app.get('/', function (req, res) {
 
 app.use(errorHandler);
 
-var port = process.env.port || 3001;
-
-app.listen(port);
-console.log("Website api started on " + port);
+app.listen(process.env.port);
+console.log("Website api started on " + process.env.port);
