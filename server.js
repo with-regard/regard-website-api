@@ -1,8 +1,9 @@
 var express = require('express');
 var mongoose = require('mongoose');
 
+var allowCors = require('./modules/allowCors.js');
 var regardUserStore = require('./modules/regard-user-store');
-var auth = require('regard-authentication')(regardUserStore);
+var auth = require('regard-authentication');
 
 var projectController = require('./modules/projectController.js');
 var investigationController = require('./modules/investigationController.js');
@@ -15,7 +16,8 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 var app = express();
 
-app.use(auth);
+app.all("*", allowCors);
+app.use(auth(regardUserStore));
 
 var apiVersion = '/v1';
 app.use(apiVersion, projectController);
