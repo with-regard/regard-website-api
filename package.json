@@ -19,7 +19,9 @@
     "cookie-parser": "~1.0.1",
     "cookie-session": "~1.0.1",
     "passport-github": "^0.1.5",
-    "regard-authentication": "git://github.com/with-regard/regard-authentication"
+    "regard-authentication": "git://github.com/with-regard/regard-authentication",
+    "request": "~2.34.0",
+    "promise": "~5.0.0"
   },
   "devDependencies": {
     "gulp": "^3.6.2",

@@ -11,6 +11,7 @@ var Investigation = require('./schemas/investigation.js');
 
 var emberController = require('./modules/emberCrudController.js');
 var userController = require('./modules/userController.js');
+var chartDataController = require('./modules/chartDataController.js');
 var errorHandler = require('./modules/errorHandler.js');
 
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING);
@@ -27,6 +28,7 @@ var apiVersion = '/v1';
 app.use(apiVersion, userController);
 app.use(apiVersion, emberController(Project));
 app.use(apiVersion, emberController(Investigation));
+app.use(apiVersion, chartDataController);
 
 
 // Routes
