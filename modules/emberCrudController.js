@@ -1,7 +1,7 @@
 var express = require('express');
-var router = express.Router();
 
 module.exports = function (Schema) {
+  var router = express.Router();
   var modelName = Schema.modelName.toLowerCase();
   var collectionName = Schema.collection.name.toLowerCase();
 
