@@ -30,7 +30,6 @@ module.exports = function(emberCrudController) {
             return chart;
         });
       })).then(function(hydratedCharts) {
-        console.dir(hydratedCharts);
         res.json({
           charts: hydratedCharts
         });
