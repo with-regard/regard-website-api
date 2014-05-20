@@ -30,6 +30,7 @@ app.use(apiVersion, userController);
 app.use(apiVersion, emberController(Project));
 app.use(apiVersion, emberController(Investigation));
 app.use(apiVersion, emberController(Chart));
+app.use(apiVersion, chartDataController);
 
 // Routes
 app.get('/', function (req, res) {
