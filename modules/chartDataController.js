@@ -9,7 +9,7 @@ router.use(function(req, res, next) {
     var chartData = JSON.parse(result).Results.map(function(chartElement) {
       return {
         name: chartElement['Extension'],
-        value: chartElement['EventCount']
+        value: chartElement['UserIds']
       }
     });
 
