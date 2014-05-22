@@ -1,14 +1,18 @@
 var express = require('express');
 var DataStore = require('./regard-data-store.js');
+var Chart = require('../schemas/chart.js');
 
 var router = express.Router();
 var dataStore = new DataStore('adobe', 'brackets');
 
-router.use(function (req, res, next) {
-  dataStore.runQuery('Adobe%20Brackets%20Extension').then(function (result) {
+router.get('/chartdata', function (req, res, next) {
+  var id = req.query.ids[0];
+  console.log(id);
+  dataStore.runQuery(id).then(function (result) {
+    console.dir(result);
     res.json({
       chartdata: [{
-        _id: '978207A8-D325-4817-AD98-79379893CDBF',
+        _id: id,
         values: JSON.parse(result).Results
       }]
     });
