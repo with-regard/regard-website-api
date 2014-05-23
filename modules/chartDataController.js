@@ -7,9 +7,8 @@ var dataStore = new DataStore('adobe', 'brackets');
 
 router.get('/chartdata', function (req, res, next) {
   var id = req.query.ids[0];
-  console.log(id);
+
   dataStore.runQuery(id).then(function (result) {
-    console.dir(result);
     res.json({
       chartdata: [{
         _id: id,
