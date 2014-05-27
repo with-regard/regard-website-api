@@ -33,7 +33,6 @@ function getUrls(organizationId, productId) {
     },
 
     runQuery: function (queryName) {
-      console.log(queryName);
       return joinUrl(endpointUrl(), 'run-query', queryName);
     },
 
@@ -55,8 +54,16 @@ module.exports = function (organizationId, productId) {
 
     },
 
-    registerQuery: function () {
-
+    registerQuery: function (name, definition) {
+      var options = {
+        url: urls.registerQuery,
+        json: {
+          "query-name": name,
+          "query-definition": definition
+        }
+      }
+      
+      return makeRequest(options);
     },
 
     runQuery: function (queryName) {

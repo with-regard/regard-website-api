@@ -18,4 +18,17 @@ router.get('/chartdata', function (req, res, next) {
   });
 });
 
+router.put('/chart/:id', function (req, res, next) {
+  if (!req.body.chart.queryDefinition) {
+    res.send(400, 'missing query definition');
+  }
+
+  var queryName = req.params.id;
+  var queryDefinition = req.body.chart.queryDefinition;
+
+  dataStore.registerQuery(queryName, queryDefinition).done(function () {
+    next();
+  });
+});
+
 module.exports = router;

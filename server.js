@@ -27,10 +27,10 @@ app.use(auth(userStore));
 
 var apiVersion = '/v1';
 app.use(apiVersion, userController);
+app.use(apiVersion, chartDataController);
 app.use(apiVersion, emberController(Project));
 app.use(apiVersion, emberController(Investigation));
 app.use(apiVersion, emberController(Chart));
-app.use(apiVersion, chartDataController);
 
 // Routes
 app.get('/', function (req, res) {
