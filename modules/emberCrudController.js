@@ -16,14 +16,18 @@ module.exports = function (Schema) {
     result[collectionName] = data;
     return result;
   }
-  
-  router.all('*', function(req, res, next) {
-    if(!req.isAuthenticated()) {
-      res.send(401);
+
+  function mustBeLoggedInToMakeChanges(req, res, next) {
+    if (!req.isAuthenticated()) {
+      res.send(401, 'You must be logged in to make changes');
     } else {
       next();
     }
-  });
+  }
+
+  router.put('*', mustBeLoggedInToMakeChanges);
+  router.post('*', mustBeLoggedInToMakeChanges);
+  router.delete('*', mustBeLoggedInToMakeChanges);
 
   router.get('/' + collectionName + '/:id', function (req, res, next) {
     Schema.findById(req.params.id).exec().then(function (document) {
