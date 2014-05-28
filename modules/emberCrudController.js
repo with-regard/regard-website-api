@@ -16,6 +16,14 @@ module.exports = function (Schema) {
     result[collectionName] = data;
     return result;
   }
+  
+  router.all('*', function(req, res, next) {
+    if(!req.isAuthenticated()) {
+      res.send(401);
+    } else {
+      next();
+    }
+  });
 
   router.get('/' + collectionName + '/:id', function (req, res, next) {
     Schema.findById(req.params.id).exec().then(function (document) {
