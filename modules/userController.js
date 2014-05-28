@@ -11,7 +11,8 @@ app.get('/users', function (req, res, next) {
   } else {
     res.json({
       "users": [{
-        _id: "anonymous user"
+        _id: "anonymous user",
+        isAnonymous: true
       }]
     })
   }
