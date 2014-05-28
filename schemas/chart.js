@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var chartSchema = new Schema({
   name: String,
+  queryDefinition: String,
   chartdata: Array
 });
 

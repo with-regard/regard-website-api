@@ -3,8 +3,8 @@ var Promise = require('promise');
 
 function makeRequest(url) {
   return new Promise(function (fulfill, reject) {
-    request(url, function (error, response, body) {
-      if (error || response.statusCode !== 200) {
+    request(url, function (error, response, body) {    
+      if (error || (response.statusCode >= 200 && response.statusCode < 400) ) {
         reject(error);
       } else {
         fulfill(body);
@@ -56,11 +56,12 @@ module.exports = function (organizationId, productId) {
 
     registerQuery: function (name, definition) {
       var options = {
-        url: urls.registerQuery,
+        url: urls.registerQuery(),
         json: {
           "query-name": name,
-          "query-definition": definition
-        }
+          "query-definition": JSON.parse(definition)
+        },
+        method: "post"
       }
       
       return makeRequest(options);
