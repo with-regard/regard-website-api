@@ -15,7 +15,7 @@ router.get('/chartdata', function (req, res, next) {
         values: JSON.parse(result).Results
       }]
     });
-  });
+  }, next);
 });
 
 router.put('/charts/:id', function (req, res, next) {
@@ -28,7 +28,7 @@ router.put('/charts/:id', function (req, res, next) {
 
   dataStore.registerQuery(queryName, queryDefinition).done(function () {
     next();
-  }, function(err){console.log(err);});
+  }, next);
 });
 
 module.exports = router;
