@@ -5,28 +5,44 @@ var Chart = require('../schemas/chart.js');
 var router = express.Router();
 var dataStore = new DataStore('Adobe', 'Brackets');
 
-router.get('/chartdata', function (req, res, next) {
-  var id = req.query.ids[0];
-
+router.get('/chartdata/:id?', function (req, res, next) {
+  var id = req.params.id || req.query.ids[0];
+    
   dataStore.runQuery(id).then(function (result) {
-  res.json({
+    res.json({
       chartdata: [{
         _id: id,
         values: JSON.parse(result).Results
       }]
     });
-  });
+  }, next);
 });
 
-router.put('/charts/:id', function (req, res, next) {
-  if (!req.body.chart.queryDefinition) {
-    res.send(400, 'missing query definition');
-  }
+function isJSON(jsonString) {
+  try {
+    var o = JSON.parse(jsonString);
 
+    if (o && typeof o === "object" && o !== null) {
+      return true;
+    }
+  } catch (e) {}
+  return false;
+};
+
+router.put('/charts/:id', function (req, res, next) {
   var queryName = req.params.id;
   var queryDefinition = req.body.chart.queryDefinition;
 
-  dataStore.registerQuery(queryName, queryDefinition).done(function () {
+  if (!queryDefinition) {
+    res.send(400, 'missing query definition');
+  }
+
+  if (!isJSON(queryDefinition)) {
+    res.send(400, 'query definition is not valid JSON');
+  }
+
+  dataStore.registerQuery(queryName, queryDefinition).done(function (response) {
+    console.dir("register query: " + response);
     next();
   }, next);
 });

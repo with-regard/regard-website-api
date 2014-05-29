@@ -62,7 +62,7 @@ module.exports = function (organizationId, productId) {
           "query-definition": JSON.parse(definition)
         },
         method: "post"
-      }
+      };
       
       return makeRequest(options);
     },
