@@ -9,21 +9,21 @@ router.get('/chartdata', function (req, res, next) {
   var id = req.query.ids[0];
 
   dataStore.runQuery(id).then(function (result) {
-  res.json({
+    res.json({
       chartdata: [{
         _id: id,
         values: JSON.parse(result).Results
       }]
     });
-  });
+  }, next);
 });
 
-router.put('/charts/:id', function (req, res, next) {
+router.post('/charts', function (req, res, next) {
   if (!req.body.chart.queryDefinition) {
     res.send(400, 'missing query definition');
   }
 
-  var queryName = req.params.id;
+  var queryName = req.body.chart.id;
   var queryDefinition = req.body.chart.queryDefinition;
 
   dataStore.registerQuery(queryName, queryDefinition).done(function () {
