@@ -13,6 +13,7 @@ var Chart = require('./schemas/chart.js');
 var emberController = require('./modules/emberCrudController.js');
 var userController = require('./modules/userController.js');
 var chartDataController = require('./modules/chartDataController.js');
+var userEventsController = require('./modules/userEventsController.js');
 var errorHandler = require('./modules/errorHandler.js');
 
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING);
@@ -31,6 +32,7 @@ app.use(apiVersion, chartDataController);
 app.use(apiVersion, emberController(Project));
 app.use(apiVersion, emberController(Investigation));
 app.use(apiVersion, emberController(Chart));
+app.use(apiVersion, userEventsController);
 
 // Routes
 app.get('/', function (req, res) {
