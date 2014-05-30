@@ -9,7 +9,7 @@ router.get('/chartdata', function (req, res, next) {
   var id = req.query.ids[0];
 
   dataStore.runQuery(id).then(function (result) {
-  res.json({
+    res.json({
       chartdata: [{
         _id: id,
         values: JSON.parse(result).Results
