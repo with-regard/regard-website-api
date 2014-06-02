@@ -8,7 +8,6 @@ var auth = require('regard-authentication');
 
 var Project = require('./schemas/project.js');
 var Investigation = require('./schemas/investigation.js');
-var Chart = require('./schemas/chart.js');
 
 var emberController = require('./modules/emberCrudController.js');
 var userController = require('./modules/userController.js');
@@ -30,7 +29,6 @@ app.use(apiVersion, userController);
 app.use(apiVersion, chartDataController);
 app.use(apiVersion, emberController(Project));
 app.use(apiVersion, emberController(Investigation));
-app.use(apiVersion, emberController(Chart));
 
 // Routes
 app.get('/', function (req, res) {

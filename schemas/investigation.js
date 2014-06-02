@@ -3,7 +3,8 @@ var Schema = mongoose.Schema;
 
 var investigationSchema = new Schema({
   name: String,
-  charts: Array
+  queryDefinition: String,
+  chartdata: Array
 });
 
 module.exports = mongoose.model('Investigation', investigationSchema);
