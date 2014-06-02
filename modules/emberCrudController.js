@@ -68,7 +68,7 @@ module.exports = function (Schema) {
   });
 
   router.delete('/' + collectionName + '/:id', function (req, res, next) {
-    Schema.findById(req.params.id).exec().then(function () {
+    Schema.findByIdAndRemove(req.params.id).exec().then(function () {
       res.send(200);
     }, next);
   });
