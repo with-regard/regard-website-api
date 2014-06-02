@@ -14,7 +14,7 @@ app.get('/users', function (req, res, next) {
         _id: "anonymous user",
         isAnonymous: true
       }]
-    })
+    });
   }
 });
 

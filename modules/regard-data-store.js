@@ -4,7 +4,7 @@ var Promise = require('promise');
 function makeRequest(url) {
   return new Promise(function (fulfill, reject) {
     request(url, function (error, response, body) {    
-      if (error || (response.statusCode >= 200 && response.statusCode < 400) ) {
+      if (error || response.statusCode >= 400) {
         reject(error);
       } else {
         fulfill(body);
@@ -62,7 +62,7 @@ module.exports = function (organizationId, productId) {
           "query-definition": JSON.parse(definition)
         },
         method: "post"
-      }
+      };
       
       return makeRequest(options);
     },
