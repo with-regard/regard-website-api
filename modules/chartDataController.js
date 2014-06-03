@@ -8,12 +8,7 @@ router.get('/chartdata/:id?', function (req, res, next) {
   var id = req.params.id || req.query.ids[0];
     
   dataStore.runQuery(id).then(function (result) {
-    res.json({
-      chartdata: [{
-        _id: id,
-        values: JSON.parse(result).Results
-      }]
-    });
+    res.json(JSON.parse(result).Results);
   }, next);
 });
 
