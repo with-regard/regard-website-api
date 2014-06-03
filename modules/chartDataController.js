@@ -4,8 +4,8 @@ var DataStore = require('./regard-data-store.js');
 var router = express.Router();
 var dataStore = new DataStore('Adobe', 'Brackets');
 
-router.get('/chartdata/:id?', function (req, res, next) {
-  var id = req.params.id || req.query.ids[0];
+router.get('/chartdata/:id', function (req, res, next) {
+  var id = req.params.id;
     
   dataStore.runQuery(id).then(function (result) {
     res.json(JSON.parse(result).Results);
