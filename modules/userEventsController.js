@@ -1,15 +1,20 @@
 var express = require('express');
-var router = express.Router();
+var DataStore = require('./regard-data-store.js');
 
-router.get('/userevents/:id', function(req, res, next){
-  var dummyData = [{ 'type': 'adobe.brackets.foo'}];
+var router = express.Router();
+var dataStore = new DataStore('Adobe', 'Brackets');
+
+router.get('/userevents/:id', function (req, res, next) {
+  var id = req.params.id;
   
-  res.json({
+  dataStore.getEventsForUser(id).then(function (events) {
+    res.json({
       userevents: [{
-        _id: req.params.id,
-        events: dummyData
+        _id: id,
+        events: JSON.parse(events)
       }]
     });
-})
+  });
+});
 
 module.exports = router;

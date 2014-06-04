@@ -6,7 +6,7 @@ var dataStore = new DataStore('Adobe', 'Brackets');
 
 router.get('/chartdata/:id', function (req, res, next) {
   var id = req.params.id;
-    
+  
   dataStore.runQuery(id).then(function (result) {
     res.json(JSON.parse(result).Results);
   }, next);

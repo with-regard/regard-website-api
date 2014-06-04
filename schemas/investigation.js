@@ -4,6 +4,8 @@ var Schema = mongoose.Schema;
 var investigationSchema = new Schema({
   name: String,
   queryDefinition: String,
+  xAxisLabel: String,
+  yAxisLabel: String,
   chartdata: Array
 });
 

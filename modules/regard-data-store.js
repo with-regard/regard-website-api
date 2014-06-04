@@ -3,7 +3,7 @@ var Promise = require('promise');
 
 function makeRequest(url) {
   return new Promise(function (fulfill, reject) {
-    request(url, function (error, response, body) {    
+    request(url, function (error, response, body) {
       if (error || response.statusCode >= 400) {
         reject(error);
       } else {
@@ -36,12 +36,20 @@ function getUrls(organizationId, productId) {
       return joinUrl(endpointUrl(), 'run-query', queryName);
     },
 
+    runQueryWithUser: function (queryName, userId) {
+      return joinUrl(endpointUrl(), 'run-query', queryName, userId);
+    },
+
     optIn: function (userId) {
       return joinUrl(endpointUrl(), userId, 'opt-in');
     },
 
     optOut: function (userId) {
       return joinUrl(endpointUrl(), userId, 'opt-out');
+    },
+
+    getEventsForUser: function (userId) {
+      return joinUrl(endpointUrl(), 'get-events-for-user', userId);
     }
   };
 }
@@ -63,12 +71,16 @@ module.exports = function (organizationId, productId) {
         },
         method: "post"
       };
-      
+
       return makeRequest(options);
     },
 
     runQuery: function (queryName) {
       return makeRequest(urls.runQuery(queryName));
+    },
+
+    runQueryWithUser: function (queryName, userId) {
+      return makeRequest(urls.runQuery(queryName, userId));
     },
 
     optIn: function (userId) {
@@ -77,6 +89,10 @@ module.exports = function (organizationId, productId) {
 
     optOut: function (userId) {
 
+    },
+
+    getEventsForUser: function (userId) {
+      return makeRequest(urls.getEventsForUser(userId));
     }
   };
 };
