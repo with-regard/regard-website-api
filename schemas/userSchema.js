@@ -5,8 +5,10 @@ var userSchema = new Schema({
   githubId: Number,
   name: String,
   avatar_url: String,
-  isDeveloper: Boolean,
-  projects: Array
+  projects: Array,
+  userId: String, 
+  isUser: Boolean,
+  isDeveloper: Boolean
 });
 
 module.exports = mongoose.model('User', userSchema);
