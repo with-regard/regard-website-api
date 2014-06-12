@@ -42,11 +42,15 @@ function getUrls(organizationId, productId) {
     },
 
     optIn: function (userId) {
-      return joinUrl(endpointUrl(), userId, 'opt-in');
+      return joinUrl(endpointUrl(), 'users', userId, 'opt-in');
     },
 
     optOut: function (userId) {
-      return joinUrl(endpointUrl(), userId, 'opt-out');
+      return joinUrl(endpointUrl(), 'users', userId, 'opt-out');
+    },
+    
+    deleteData: function(userId) {
+      return joinUrl(endpointUrl(), 'users', userId, 'delete-data');
     },
 
     getEventsForUser: function (userId) {
@@ -90,6 +94,15 @@ module.exports = function (organizationId, productId) {
 
     optOut: function (userId) {
 
+    },
+    
+    deleteData: function (userId) {
+      var options = {
+        url: urls.deleteData(userId),
+        method: "post"
+      };
+
+      return makeRequest(options);
     },
 
     getEventsForUser: function (userId) {
