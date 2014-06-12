@@ -25,7 +25,7 @@ router.get('/chartdata/:id', function (req, res, next) {
     dataStore.runQuery(id).then(function (result) {
       res.json(JSON.parse(result).Results);
     }, next);
-  }, ne);
+  }, next);
 });
 
 function isJSON(jsonString) {
