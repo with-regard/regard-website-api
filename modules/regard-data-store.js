@@ -5,6 +5,7 @@ function makeRequest(url) {
   return new Promise(function (fulfill, reject) {
     request(url, function (error, response, body) {
       if (error || response.statusCode >= 400) {
+        error = error || response.statusCode;
         reject(error);
       } else {
         fulfill(body);
