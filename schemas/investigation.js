@@ -6,7 +6,9 @@ var investigationSchema = new Schema({
   queryDefinition: String,
   xAxisLabel: String,
   yAxisLabel: String,
-  chartdata: Array
+  chartdata: Array,
+  organization: String,
+  product: String
 });
 
 module.exports = mongoose.model('Investigation', investigationSchema);

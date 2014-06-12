@@ -2,7 +2,7 @@ var express = require('express');
 var DataStore = require('./regard-data-store.js');
 
 var router = express.Router();
-var dataStore = new DataStore('Adobe', 'Brackets');
+var dataStore = new DataStore('regard', 'website');
 
 router.get('/userevents/:id', function (req, res, next) {
   var id = req.params.id;

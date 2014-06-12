@@ -1,15 +1,31 @@
 var express = require('express');
 var DataStore = require('./regard-data-store.js');
+var Investigation = require('../schemas/investigation.js');
 
 var router = express.Router();
-var dataStore = new DataStore('Adobe', 'Brackets');
+
+function getDataStore(id) {
+  return Investigation.findById(id).exec().then(function (investigation) {
+    if (!investigation.organization) {
+      throw new Error('investigation is missing organization');
+    }
+
+    if (!investigation.product) {
+      throw new Error('investigation is missing product');
+    }
+
+    return new DataStore(investigation.organization, investigation.product);
+  });
+}
 
 router.get('/chartdata/:id', function (req, res, next) {
   var id = req.params.id;
-  
-  dataStore.runQuery(id).then(function (result) {
-    res.json(JSON.parse(result).Results);
-  }, next);
+
+  getDataStore(id).then(function (dataStore) {
+    dataStore.runQuery(id).then(function (result) {
+      res.json(JSON.parse(result).Results);
+    }, next);
+  }, ne);
 });
 
 function isJSON(jsonString) {
@@ -27,17 +43,11 @@ router.put('/investigations/:id', function (req, res, next) {
   var queryName = req.params.id;
   var queryDefinition = req.body.investigation.queryDefinition;
 
-  if (!queryDefinition) {
-    res.send(400, 'missing query definition');
-  }
-
-  if (!isJSON(queryDefinition)) {
-    res.send(400, 'query definition is not valid JSON');
-  }
-
-  dataStore.registerQuery(queryName, queryDefinition).done(function (response) {
-    console.dir("register query: " + response);
-    next();
+  getDataStore(queryName).then(function (dataStore) {
+    dataStore.registerQuery(queryName, queryDefinition).done(function (response) {
+      console.dir("register query: " + response);
+      next();
+    }, next);
   }, next);
 });
 
