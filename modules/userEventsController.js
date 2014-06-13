@@ -17,7 +17,7 @@ router.get('/userevents/:id', function (req, res, next) {
   });
 });
 
-router.post('/userevents/:id/delete-data', function (req, res, next) {
+router.get('/userevents/:id/delete-data', function (req, res, next) {
   var id = req.params.id;
 
   dataStore.deleteData(id).then(function () {
