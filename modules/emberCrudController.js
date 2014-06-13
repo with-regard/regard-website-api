@@ -24,10 +24,14 @@ module.exports = function (Schema) {
       next();
     }
   }
+  
+  function disable(req, res, next) {
+    res.send(401);
+  }
 
-  router.put('*', mustBeLoggedInToMakeChanges);
-  router.post('*', mustBeLoggedInToMakeChanges);
-  router.delete('*', mustBeLoggedInToMakeChanges);
+  router.put('*', disable);
+  router.post('*', disable);
+  router.delete('*', disable);
 
   router.get('/' + collectionName + '/:id', function (req, res, next) {
     Schema.findById(req.params.id).exec().then(function (document) {
