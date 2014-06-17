@@ -3,11 +3,6 @@ var Promise = require('promise');
 
 function makeRequest(options) {
   return new Promise(function (fulfill, reject) {    
-    options.auth = {
-      'user': process.env.QUERY_USERNAME,
-      'pass': process.env.QUERY_PASSWORD
-    };
-    
     request(options, function (error, response, body) {
       if (error || response.statusCode >= 400) {
         error = error || response.statusCode;
@@ -15,7 +10,7 @@ function makeRequest(options) {
       } else {
         fulfill(body);
       }
-    });
+    }).auth(process.env.QUERY_USERNAME, process.env.QUERY_PASSWORD);
   });
 }
 
