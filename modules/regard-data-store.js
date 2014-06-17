@@ -21,7 +21,7 @@ function getUrls(organizationId, productId) {
   }
 
   function endpointUrl() {
-    return joinUrl('http://regard-consumer.cloudapp.net:8888/product/v1', organizationId, productId);
+    return joinUrl('https://query.withregard.io:8888/product/v1', organizationId, productId);
   }
 
   return {
