@@ -1,9 +1,14 @@
 var request = require('request');
 var Promise = require('promise');
 
-function makeRequest(url) {
-  return new Promise(function (fulfill, reject) {
-    request(url, function (error, response, body) {
+function makeRequest(options) {
+  return new Promise(function (fulfill, reject) {    
+    options.auth = {
+      'user': process.env.QUERY_USERNAME,
+      'pass': process.env.QUERY_PASSWORD
+    };
+    
+    request(options, function (error, response, body) {
       if (error || response.statusCode >= 400) {
         error = error || response.statusCode;
         reject(error);
@@ -81,11 +86,19 @@ module.exports = function (organizationId, productId) {
     },
 
     runQuery: function (queryName) {
-      return makeRequest(urls.runQuery(queryName));
+      var options = {
+        url: urls.runQuery(queryName)
+      };
+      
+      return makeRequest(options);
     },
 
     runQueryWithUser: function (queryName, userId) {
-      return makeRequest(urls.runQuery(queryName, userId));
+      var options = {
+        url: urls.runQuery(queryName, userId)
+      };
+      
+      return makeRequest(options);
     },
 
     optIn: function (userId) {
@@ -106,7 +119,11 @@ module.exports = function (organizationId, productId) {
     },
 
     getEventsForUser: function (userId) {
-      return makeRequest(urls.getEventsForUser(userId));
+      var options = {
+        url: urls.getEventsForUser(userId)
+      };
+      
+      return makeRequest(options);
     }
   };
 };
