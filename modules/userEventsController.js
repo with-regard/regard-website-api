@@ -14,7 +14,7 @@ router.get('/userevents/:id', function (req, res, next) {
         events: JSON.parse(events)
       }]
     });
-  });
+  }, next);
 });
 
 router.post('/userevents/:id/delete-data', function (req, res, next) {
