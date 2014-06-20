@@ -2,11 +2,11 @@ var express = require('express');
 var DataStore = require('./regard-data-store.js');
 
 var router = express.Router();
-var dataStore = new DataStore('regard', 'website');
 
-router.get('/userevents/:id', function (req, res, next) {
+router.get('/userevents/:organization/:product/:id', function (req, res, next) {
   var id = req.params.id;
-
+  var dataStore = new DataStore(req.params.organization, req.params.product);
+  
   dataStore.getEventsForUser(id).then(function (events) {
     res.json({
       userevents: [{
@@ -17,8 +17,9 @@ router.get('/userevents/:id', function (req, res, next) {
   }, next);
 });
 
-router.post('/userevents/:id/delete-data', function (req, res, next) {
+router.post('/userevents/:organization/:product/:id/delete-data', function (req, res, next) {
   var id = req.params.id;
+  var dataStore = new DataStore(req.params.organization, req.params.product);
 
   dataStore.deleteData(id).then(function () {
     res.send(200);
