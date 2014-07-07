@@ -6,10 +6,10 @@ var router = express.Router();
 router.get('/userevents/:organization/:product/:id', function (req, res, next) {
   var id = req.params.id;
   var dataStore = new DataStore(req.params.organization, req.params.product);
-  
+
   dataStore.getEventsForUser(id).then(function (events) {
     res.json({
-      userevents: [{
+      "user-events": [{
         _id: id,
         events: JSON.parse(events)
       }]
