@@ -5,8 +5,7 @@ var userSchema = new Schema({
   githubId: Number,
   name: String,
   avatar_url: String,
-  projects: Array,
-  userId: String, 
+  userId: String,
   isUser: Boolean,
   isDeveloper: Boolean
 });

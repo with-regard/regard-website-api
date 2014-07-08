@@ -1,13 +1,25 @@
 var express = require('express');
 var User = require('../schemas/userSchema.js');
+var organizationController = require('./organizationController.js');
 
 var app = express();
 
 app.get('/users', function (req, res, next) {
   if (req.isAuthenticated()) {
-    res.json({
-      "users": [req.user]
+    var user = req.user;
+
+    organizationController.getOrganziationsForUser(user._id).then(function(organizations){
+      if(organizations.length === 0) {
+        organizations = [user._id];
+      }
+
+      user.organizations = organizations;
+
+      res.json({
+        "users": [user]
+      });
     });
+
   } else {
     res.json({
       "users": [{
@@ -17,21 +29,6 @@ app.get('/users', function (req, res, next) {
       }]
     });
   }
-});
-
-app.put('/users/:id', function (req, res, next) {
-  if (!req.isAuthenticated()) {
-    res.send(401, 'You must be logged in to join a project');
-  }
-
-  User.findById(req.params.id).exec().then(function (user) {
-    user.projects = req.body.user.projects;
-    user.save();
-
-    res.json({
-      "user": user
-    });
-  }, next);
 });
 
 module.exports = app;
