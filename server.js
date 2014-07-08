@@ -6,6 +6,7 @@ var allowCors = require('./modules/allowCors.js');
 var userStore = require('./modules/regard-user-store');
 var auth = require('regard-authentication');
 
+var Organization = require('./schemas/organization.js');
 var Project = require('./schemas/project.js');
 var Investigation = require('./schemas/investigation.js');
 
@@ -29,6 +30,7 @@ var apiVersion = '/v1';
 app.use(apiVersion, userController);
 app.use(apiVersion, chartDataController);
 app.use(apiVersion, userEventsController);
+app.use(apiVersion, emberController(Organization));
 app.use(apiVersion, emberController(Project));
 app.use(apiVersion, emberController(Investigation));
 
