@@ -4,24 +4,28 @@ var Investigation = require('../schemas/investigation.js');
 
 var router = express.Router();
 
-function getDataStore(id) {
-  return Investigation.findById(id).exec().then(function (investigation) {
-    if (!investigation.organization) {
-      throw new Error('investigation is missing organization');
+function getDataStore(org, prod) {
+    if (!org) {
+      throw new Error('missing organization');
+    }
+    if (!prod) {
+      throw new Error('missing product');
     }
 
-    if (!investigation.product) {
-      throw new Error('investigation is missing product');
-    }
-
-    return new DataStore(investigation.organization, investigation.product);
-  });
+    return new DataStore(org, prod);
 }
+
+function getDataStoreFromInvestigation(id) {
+    return Investigation.findById(id).exec().then(function (investigation) {
+      return getDataStore(investigation.organization, investigation.product);
+    });
+}
+
 
 router.get('/chartdata/:id', function (req, res, next) {
   var id = req.params.id;
 
-  getDataStore(id).then(function (dataStore) {
+  getDataStoreFromInvestigation(id).then(function (dataStore) {
     dataStore.runQuery(id).then(function (result) {
       res.json(JSON.parse(result).Results);
     }, next);
@@ -43,12 +47,12 @@ router.put('/investigations/:id', function (req, res, next) {
   var queryName = req.params.id;
   var queryDefinition = req.body.investigation.queryDefinition;
 
-  getDataStore(queryName).then(function (dataStore) {
-    dataStore.registerQuery(queryName, queryDefinition).done(function (response) {
+  var dataStore = getDataStore(req.body.investigation.organization, req.body.investigation.product);
+
+  dataStore.registerQuery(queryName, queryDefinition).done(function (response) {
       console.dir("register query: " + response);
       next();
     }, next);
-  }, next);
 });
 
 module.exports = router;

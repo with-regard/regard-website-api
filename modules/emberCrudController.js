@@ -25,13 +25,9 @@ module.exports = function (Schema) {
     }
   }
   
-  function disable(req, res, next) {
-    res.send(401);
-  }
-
-  router.put('*', disable);
-  router.post('*', disable);
-  router.delete('*', disable);
+  router.put('*', mustBeLoggedInToMakeChanges);
+  router.post('*', mustBeLoggedInToMakeChanges);
+  router.delete('*', mustBeLoggedInToMakeChanges);
 
   router.get('/' + collectionName + '/:id', function (req, res, next) {
     Schema.findById(req.params.id).exec().then(function (document) {
