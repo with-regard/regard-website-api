@@ -1,9 +1,9 @@
-var User = require('../schemas/userSchema.js');
+var User = require('../schemas/user.js');
 
 function createNewUserFromGithub(profile) {
   // passport normalizes the response.
   var raw = profile._json;
-  
+
   var user = new User({
     githubId: raw.id,
     name: raw.name,
