@@ -21,7 +21,8 @@
     "passport-github": "^0.1.5",
     "regard-authentication": "git://github.com/with-regard/regard-authentication",
     "request": "~2.34.0",
-    "promise": "~5.0.0"
+    "promise": "~5.0.0",
+    "cors": "~2.4.1"
   },
   "devDependencies": {
     "gulp": "^3.6.2",
