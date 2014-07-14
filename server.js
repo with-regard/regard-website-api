@@ -19,7 +19,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 var app = express();
 
-app.use(cors( {origin: true} ));
+app.use(cors( {origin: true, credentials: true} ));
 app.use(bodyParser());
 app.use(auth(userStore));
 
