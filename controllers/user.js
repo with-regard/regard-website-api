@@ -1,8 +1,8 @@
 "use strict";
 
 var express = require('express');
-var User = require('../schemas/userSchema.js');
-var organizationController = require('./organizationController.js');
+var User = require('../schemas/user.js');
+var organizationController = require('./organization.js');
 
 var app = express();
 
