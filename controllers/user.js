@@ -25,7 +25,7 @@ app.get('/users', function (req, res, next) {
       "users": [{
         _id: "anonymous user",
         isAnonymous: true,
-        projects: ["53997a47b12b52200c7e3b88"] // change this to regard organization id
+        organizations: ["53c919a7e4b06ed9bccb4dea"]
       }]
     });
   }
